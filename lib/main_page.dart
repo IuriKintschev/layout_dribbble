@@ -161,6 +161,9 @@ class LeopardPage extends StatelessWidget {
           height: 80,
         ),
         The72Text(),
+        SizedBox(
+          height: 80,
+        ),
         Text(
             'qwertyqwertyqwer  tyqwertyqwertyqwertyqwe  rtyqwertyqwertyqwerty  qwertyqwertyqwert yqwertyqwertyqwertyqw ertyqwerty')
       ],
