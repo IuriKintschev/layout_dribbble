@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 class PageOffsetNotifier with ChangeNotifier {
   double _offset = 0;
   double _page = 0;
