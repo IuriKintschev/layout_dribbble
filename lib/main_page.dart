@@ -1,6 +1,7 @@
+import 'package:desing_map/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:math' as math;
 
 class PageOffsetNotifier with ChangeNotifier {
   double _offset = 0;
@@ -157,17 +158,67 @@ class LeopardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(
           height: 80,
         ),
         The72Text(),
         SizedBox(
-          height: 80,
+          height: 30,
         ),
-        Text(
-            'qwertyqwertyqwer  tyqwertyqwertyqwertyqwe  rtyqwertyqwertyqwerty  qwertyqwertyqwert yqwertyqwertyqwertyqw ertyqwerty')
+        TravelDescriptionLabel(),
+        SizedBox(
+          height: 30,
+        ),
+        LeopardDescription(),
       ],
+    );
+  }
+}
+
+class TravelDescriptionLabel extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 24.0),
+      child: Consumer<PageOffsetNotifier>(
+        builder: (context, notifier, child) {
+          return Opacity(
+            opacity: math.max(0, 1 - 4 * notifier.page),
+            child: child,
+          );
+        },
+        child: Text(
+          'Travel Description',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LeopardDescription extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      child: Consumer<PageOffsetNotifier>(
+        builder: (context, notifier, child) {
+          return Opacity(
+            opacity: math.max(0, 1 - 4 * notifier.page),
+            child: child,
+          );
+        },
+        child: Text(
+          'O leopardo é bixo muito sagaz, cassador de gente e vive na amazonia. Muitos caçadores tentam pegarr esse trem, mas acaba morrendo pois o bixo muito doido e rapidão moro.',
+          style: TextStyle(
+            color: lightGray,
+          ),
+        ),
+      ),
     );
   }
 }
