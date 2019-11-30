@@ -42,6 +42,8 @@ class MainPage extends StatelessWidget {
               AppBar(),
               LeopardImage(),
               VultureImage(),
+              ShareButton(),
+              PageIndicator(),
             ],
           ),
         ),
@@ -219,6 +221,55 @@ class LeopardDescription extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ShareButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 16,
+      right: 24,
+      child: Icon(Icons.share),
+    );
+  }
+}
+
+class PageIndicator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, _) {
+        return Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (notifier.page.round() == 0) ? white : lightGray,
+                  ),
+                  width: 8,
+                  height: 8,
+                ),
+                SizedBox(width: 8),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (notifier.page.round() != 0) ? white : lightGray,
+                  ),
+                  width: 8,
+                  height: 8,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
