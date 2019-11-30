@@ -44,6 +44,7 @@ class MainPage extends StatelessWidget {
               VultureImage(),
               ShareButton(),
               PageIndicator(),
+              ArrowUp(),
             ],
           ),
         ),
@@ -192,7 +193,7 @@ class TravelDescriptionLabel extends StatelessWidget {
           );
         },
         child: Text(
-          'Travel Description',
+          'Leopardo Descrição',
           style: TextStyle(
             fontSize: 18,
           ),
@@ -253,8 +254,8 @@ class PageIndicator extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: (notifier.page.round() == 0) ? white : lightGray,
                   ),
-                  width: 8,
-                  height: 8,
+                  width: 6,
+                  height: 6,
                 ),
                 SizedBox(width: 8),
                 Container(
@@ -262,14 +263,29 @@ class PageIndicator extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: (notifier.page.round() != 0) ? white : lightGray,
                   ),
-                  width: 8,
-                  height: 8,
+                  width: 6,
+                  height: 6,
                 ),
               ],
             ),
           ),
         );
       },
+    );
+  }
+}
+
+class ArrowUp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: (128.0 + 350 + 20),
+      right: 24,
+      child: Icon(
+        Icons.keyboard_arrow_up,
+        size: 28,
+        color: lightGray,
+      ),
     );
   }
 }
