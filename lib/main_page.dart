@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
+import 'leopart_page.dart';
+
 class PageOffsetNotifier with ChangeNotifier {
   double _offset = 0;
   double _page = 0;
@@ -11,6 +13,8 @@ class PageOffsetNotifier with ChangeNotifier {
     pageController.addListener(() {
       _offset = pageController.offset;
       _page = pageController.page;
+      // print(_offset);
+      // print(_page);
       notifyListeners();
     });
   }
@@ -45,6 +49,12 @@ class MainPage extends StatelessWidget {
               ShareButton(),
               PageIndicator(),
               ArrowUp(),
+              TravelDatailsLabel(),
+              StartCampLabel(),
+              StartTimeLabel(),
+              BaseCampLabel(),
+              BaseTimeLabel(),
+              DistanceLabel(),
             ],
           ),
         ),
@@ -119,113 +129,6 @@ class AppBar extends StatelessWidget {
   }
 }
 
-class The72Text extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<PageOffsetNotifier>(
-      builder: (context, notifier, child) {
-        return Transform.translate(
-          offset: Offset((-32 - 0.5 * notifier.offset), 0),
-          child: child,
-        );
-      },
-      child: Transform.translate(
-        offset: Offset(-30, 0),
-        child: Container(
-          alignment: Alignment.topLeft,
-          child: RotatedBox(
-            quarterTurns: 1,
-            child: Text(
-              '72',
-              style: TextStyle(
-                fontSize: 350,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-    // return Image.asset('assets/leopard.png');
-  }
-}
-
-class VulturePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class LeopardPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        SizedBox(
-          height: 80,
-        ),
-        The72Text(),
-        SizedBox(
-          height: 30,
-        ),
-        TravelDescriptionLabel(),
-        SizedBox(
-          height: 30,
-        ),
-        LeopardDescription(),
-      ],
-    );
-  }
-}
-
-class TravelDescriptionLabel extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 24.0),
-      child: Consumer<PageOffsetNotifier>(
-        builder: (context, notifier, child) {
-          return Opacity(
-            opacity: math.max(0, 1 - 4 * notifier.page),
-            child: child,
-          );
-        },
-        child: Text(
-          'Leopardo Descrição',
-          style: TextStyle(
-            fontSize: 18,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class LeopardDescription extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Consumer<PageOffsetNotifier>(
-        builder: (context, notifier, child) {
-          return Opacity(
-            opacity: math.max(0, 1 - 4 * notifier.page),
-            child: child,
-          );
-        },
-        child: Text(
-          'O leopardo é bixo muito sagaz, cassador de gente e vive na amazonia. Muitos caçadores tentam pegarr esse trem, mas acaba morrendo pois o bixo muito doido e rapidão moro.',
-          style: TextStyle(
-            color: lightGray,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class ShareButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -245,7 +148,7 @@ class PageIndicator extends StatelessWidget {
         return Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(bottom: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -279,12 +182,187 @@ class ArrowUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: (128.0 + 350 + 20),
+      top: (128.0 + 300 + 20),
       right: 24,
       child: Icon(
         Icons.keyboard_arrow_up,
         size: 28,
         color: lightGray,
+      ),
+    );
+  }
+}
+
+class VulturePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class TravelDatailsLabel extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        return Positioned(
+          top: 128.0 + 300 + 20,
+          left: 24 + MediaQuery.of(context).size.width - notifier.offset,
+          // child: child,
+          child: Opacity(
+            opacity: math.max(0, 4 * notifier.page - 3),
+            child: child,
+          ),
+        );
+      },
+      child: Text(
+        'Abutre Detalhes',
+        style: TextStyle(
+          fontSize: 18,
+        ),
+      ),
+    );
+  }
+}
+
+class StartCampLabel extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        return Positioned(
+          width: (MediaQuery.of(context).size.width - 48) / 3,
+          top: 128.0 + 300 + 20 + 24 + 30,
+          left: math.max(0, 4 * notifier.page - 3) * 24.0,
+          child: Opacity(
+            opacity: math.max(0, 4 * notifier.page - 3),
+            child: child,
+          ),
+        );
+      },
+      child: Center(
+        child: Text(
+          'Start Camp',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class StartTimeLabel extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        return Positioned(
+          width: (MediaQuery.of(context).size.width - 48) / 3,
+          top: 128.0 + 300 + 20 + 24 + 30 + 30,
+          left: math.max(0, 4 * notifier.page - 3) * 24.0,
+          child: Opacity(
+            opacity: math.max(0, 4 * notifier.page - 3),
+            child: child,
+          ),
+        );
+      },
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: Text(
+          '02:40 pm',
+          style: TextStyle(
+            fontSize: 14,
+            color: lightGray,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BaseCampLabel extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        return Positioned(
+          width: (MediaQuery.of(context).size.width - 48) / 3,
+          top: 128.0 + 300 + 20 + 24 + 30,
+          right: math.max(0, 4 * notifier.page - 3) * 24.0,
+          child: Opacity(
+            opacity: math.max(0, 4 * notifier.page - 3),
+            child: child,
+          ),
+        );
+      },
+      child: Center(
+        child: Text(
+          'Base Camp',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BaseTimeLabel extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        return Positioned(
+          width: (MediaQuery.of(context).size.width - 48) / 3,
+          top: 128.0 + 300 + 20 + 24 + 30 + 30,
+          right: math.max(0, 4 * notifier.page - 3) * 24.0,
+          child: Opacity(
+            opacity: math.max(0, 4 * notifier.page - 3),
+            child: child,
+          ),
+        );
+      },
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          '07:30 am',
+          style: TextStyle(
+            fontSize: 14,
+            color: lightGray,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DistanceLabel extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        return Positioned(
+          width: MediaQuery.of(context).size.width,
+          top: 128.0 + 300 + 20 + 24 + 30 + 30,
+          child: Opacity(
+            opacity: math.max(0, 4 * notifier.page - 3),
+            child: child,
+          ),
+        );
+      },
+      child: Center(
+        child: Text(
+          '72 km',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
