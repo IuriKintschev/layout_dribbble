@@ -55,6 +55,7 @@ class MainPage extends StatelessWidget {
               BaseCampLabel(),
               BaseTimeLabel(),
               DistanceLabel(),
+              TravelDots(),
             ],
           ),
         ),
@@ -364,6 +365,66 @@ class DistanceLabel extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TravelDots extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        double opacity = math.max(0, 4 * notifier.page - 3);
+        return Positioned(
+          top: 128.0 + 300 + 20 + 24 + 30,
+          width: MediaQuery.of(context).size.width,
+          child: Center(
+            child: Opacity(
+              opacity: opacity,
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(left: opacity * 40),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: white,
+                    ),
+                    width: 8,
+                    height: 8,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: opacity * 10),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: lightGray,
+                    ),
+                    width: 4,
+                    height: 4,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: opacity * 10),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: lightGray,
+                    ),
+                    width: 4,
+                    height: 4,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: opacity * 40),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: white)),
+                    width: 8,
+                    height: 8,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
