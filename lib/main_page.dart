@@ -56,6 +56,7 @@ class MainPage extends StatelessWidget {
               BaseTimeLabel(),
               DistanceLabel(),
               TravelDots(),
+              MapButton(),
             ],
           ),
         ),
@@ -197,7 +198,9 @@ class ArrowUp extends StatelessWidget {
 class VulturePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: VultureCircle(),
+    );
   }
 }
 
@@ -342,6 +345,25 @@ class BaseTimeLabel extends StatelessWidget {
   }
 }
 
+class VultureCircle extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(builder: (context, notifier, _) {
+      double mutiplier = math.max(0, 4 * notifier.page - 3);
+      double size = MediaQuery.of(context).size.width * 0.6 * mutiplier;
+      return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: lightGray,
+        ),
+        width: size,
+        height: size,
+        margin: EdgeInsets.only(bottom: 180),
+      );
+    });
+  }
+}
+
 class DistanceLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -364,6 +386,32 @@ class DistanceLabel extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MapButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 8,
+      left: 8,
+      child: Consumer<PageOffsetNotifier>(
+        builder: (context, notifier, _) {
+          double opacity = math.max(0, 4 * notifier.page - 3);
+          return Opacity(
+            opacity: opacity,
+            child: FlatButton(
+              child: Text(
+                'on map'.toUpperCase(),
+                style: TextStyle(fontSize: 12),
+              ),
+              onPressed:
+                  (notifier.page != 1) ? null : () => print('ON MAP PRESSED'),
+            ),
+          );
+        },
       ),
     );
   }
